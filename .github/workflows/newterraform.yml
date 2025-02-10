@@ -12,16 +12,16 @@ on:
 # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
 defaults:
   run:
-    shell: bash
+    shell: bash # WHICH is commaND PROMT OF LINUX UBUNT OS SELHOSTED RUNNER 
 
 env: 
-  ROOT_PATH: '${{ github.workspace }}/src'
+  ROOT_PATH: '${{ github.workspace }}/src' # WHICH INCLUDE ROOT_PATH OF TERRAFOR AZURE VM 
 
 
 jobs:
   terraform_Plan:
     name: 'terraform Plan'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # ubuntu VERSION latest  of SELHOSTED RUNNER
     environment: dev
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
@@ -39,9 +39,12 @@ jobs:
           terraform_version: 1.1.7
 
       - name: Azure Login
-        uses: azure/login@v1
+        uses: azure/login@v1 # log in to azure DEV<QA<UAT<PROD OIDC fedrated creds
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: 
+                 AZURE_CLIENT_ID
+                 AZURE_SUBSCRIPTION_ID
+                 AZURE_TENANT_ID
         
       - name: Terraform init -upgrade
         run: terraform init
@@ -56,7 +59,7 @@ jobs:
         # run: terraform apply -auto-approve
         # working-directory: ${{ env.ROOT_PATH }}
         
-      # - name: Terraform destroy
+      # - name: Terraform destroy # to detete vm from azure if had issues
         # run: terraform destroy -auto-approve
         # working-directory: ${{ env.ROOT_PATH }}
 
